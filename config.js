@@ -15,7 +15,10 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 const batch = db.batch();
+
+const Users = db.collection("users");
+const Orders = db.collection("orders");
 const Menu = db.collection("menu");
 const Categories = db.collection("categories");
 
-module.exports = { Menu, Categories, batch };
+module.exports = { Users, Orders, Menu, Categories, batch };

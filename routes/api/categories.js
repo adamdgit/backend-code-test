@@ -1,29 +1,49 @@
 const express = require("express");
-const { Categories, batch } = require("../../config");
+const { Categories } = require("../../config");
 const routes = express.Router();
 
 routes.get("/", async (req, res) => {
-  const result = await Categories.get();
-  const list = result.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  res.send(list);
+  try {
+    const data = await Categories.get();
+    const list = data.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    res.status(200).send(list);
+  } 
+  catch (err) {
+    res.status(400).send(err)
+  }
 });
 
 routes.post("/create", async (req, res) => {
-  await Categories.add(req.body);
-  res.send({ msg: "Category added successfully." });
+  try {
+    console.log(req.body)
+    await Categories.add(req.body);
+    res.status(201).send({ msg: "Category added successfully." });
+  } 
+  catch (err) {
+    res.status(400).send(err)
+  }
 });
 
 routes.put("/update/:category_id", async (req, res) => {
-  const id = req.params.category_id;
-  delete req.body.id;
-  await Categories.doc(id).update(req.body);
-  res.send({ msg: "Category updated successfully." });
+  try {
+    const id = req.params.category_id;
+    await Categories.doc(id).update(req.body);
+    res.status(200).send({ msg: "Category updated successfully." });
+  } 
+  catch (err) {
+    res.status(400).send(err)
+  }
 });
 
 routes.delete("/delete/:category_id", async (req, res) => {
-  const id = req.params.category_id;
-  await Categories.doc(id).delete();
-  res.send({ msg: "Category deleted successfully." });
+  try {
+    const id = req.params.category_id;
+    await Categories.doc(id).delete();
+    res.status(200).send({ msg: "Category deleted successfully." });
+  } 
+  catch (err) {
+    res.status(400).send(err)
+  }
 });
 
 module.exports = routes;

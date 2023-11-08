@@ -16,7 +16,29 @@ routes.get("/", async (req, res) => {
 routes.post("/create", async (req, res) => {
   try {
     await Menu.add(req.body);
-    res.status(201).send({ msg: "Category added successfully." });
+    res.status(201).send({ msg: "Menu item added successfully." });
+  } 
+  catch (err) {
+    res.status(400).send(err)
+  }
+});
+
+routes.put("/update/:menu_id", async (req, res) => {
+  try {
+    const id = req.params.menu_id;
+    await Menu.doc(id).update(req.body);
+    res.status(200).send({ msg: "Menu item updated successfully." });
+  } 
+  catch (err) {
+    res.status(400).send(err)
+  }
+});
+
+routes.delete("/delete/:menu_id", async (req, res) => {
+  try {
+    const id = req.params.menu_id;
+    await Menu.doc(id).delete();
+    res.status(200).send({ msg: "Menu item deleted successfully." });
   } 
   catch (err) {
     res.status(400).send(err)
