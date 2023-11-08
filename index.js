@@ -20,4 +20,4 @@ app.use("/api/menu", menu_routes);
 app.use("/api/categories", categories_routes);
 app.use("/static", express.static("static"));
 
-app.listen(PORT, () => console.log("listening on port: " + PORT));
+app.listen(process.env.PORT || PORT, () => console.log("listening on port: " + PORT));
