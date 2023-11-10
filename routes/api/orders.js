@@ -25,7 +25,7 @@ routes.post("/create", async (req, res) => {
 
 routes.put("/update/:order_id", async (req, res) => {
   try {
-    const id = req.params.category_id;
+    const id = req.params.order_id;
     await Orders.doc(id).update(req.body);
     res.status(200).send({ msg: "Orders updated successfully." });
   } 
@@ -36,7 +36,7 @@ routes.put("/update/:order_id", async (req, res) => {
 
 routes.delete("/delete/:order_id", async (req, res) => {
   try {
-    const id = req.params.category_id;
+    const id = req.params.order_id;
     await Orders.doc(id).delete();
     res.status(200).send({ msg: "Order deleted successfully." });
   } 
