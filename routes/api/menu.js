@@ -2,6 +2,12 @@ const express = require("express");
 const { Menu, batch } = require("../../config");
 const routes = express.Router();
 
+
+/**
+ * @route   GET /menu
+ * @desc    Get all menu items
+ * @access  Public
+ */
 routes.get("/", async (req, res) => {
   try {
     const data = await Menu.get();
@@ -13,6 +19,11 @@ routes.get("/", async (req, res) => {
   }
 });
 
+/**
+ * @route   POST /menu/create
+ * @desc    Create a new menu item
+ * @access  Public
+ */
 routes.post("/create", async (req, res) => {
   try {
     await Menu.add(req.body);
@@ -23,6 +34,11 @@ routes.post("/create", async (req, res) => {
   }
 });
 
+/**
+ * @route   PUT /menu/update/:menu_id
+ * @desc    Update a menu item by ID
+ * @access  Public
+ */
 routes.put("/update/:menu_id", async (req, res) => {
   try {
     const id = req.params.menu_id;
@@ -34,6 +50,11 @@ routes.put("/update/:menu_id", async (req, res) => {
   }
 });
 
+/**
+ * @route   DELETE /menu/delete/:menu_id
+ * @desc    Delete a menu item by ID
+ * @access  Public
+ */
 routes.delete("/delete/:menu_id", async (req, res) => {
   try {
     const id = req.params.menu_id;

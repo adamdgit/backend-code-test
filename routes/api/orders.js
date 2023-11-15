@@ -25,8 +25,9 @@ routes.post("/create", async (req, res) => {
 
 routes.put("/update/:order_id", async (req, res) => {
   try {
-    const id = req.params.order_id;
-    await Orders.doc(id).update(req.body);
+    req.body.map(async (x) => {
+      await Orders.doc(x.id).update(x);
+    });
     res.status(200).send({ msg: "Orders updated successfully." });
   } 
   catch (err) {
